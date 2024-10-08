@@ -33,7 +33,6 @@ public final class BuildingGadget extends JavaPlugin implements Listener {
     //HelloWorld
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info("commit test");
         Bukkit.getLogger().info("Plugin disabled!");
     }
 
