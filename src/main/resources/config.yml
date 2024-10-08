@@ -1,0 +1,17 @@
+# config.yml
+Prefix: '&7[&6BuildingGadget&7]'
+BuildingMat: 'BLAZE_ROD'
+CustomModelData: 1050
+Messages:
+  OnlyPlayers: 'Only players can use this command.'
+  NoPermission: 'You do not have permission to use this command.'
+  ReceivedGadget: 'You have received a Building Gadget.'
+  FirstBlockSelected: 'First block selected.'
+  SecondBlockSelected: 'Second block selected.'
+  BothBlocksSelected: 'Both blocks already selected.'
+  MustSelectFirst: 'You must select the first block first.'
+  NotEnoughBlocks: 'Not enough blocks in your inventory, You Need:'
+  BlocksPlaced: 'Blocks placed successfully.'
+  InvalidFirstBlock: '&cThe first selected block is AIR. Please select a valid block.'
+  ConfigReloaded: 'Configuration has been reloaded.'
+  InvalidSelection: 'You must select two blocks first.'

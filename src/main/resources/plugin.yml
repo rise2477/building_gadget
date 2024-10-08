@@ -1,0 +1,17 @@
+name: BuildingGadget
+version: '1.0'
+main: org.rise.buildingGadget.BuildingGadget
+api-version: '1.20'
+commands:
+  bgadget:
+    description: "Building Gadget commands"
+    usage: "/bgadget <give|confirm|reload>"
+    permission: buildinggadget.use
+    permission-message: "You do not have permission to use this command."
+permissions:
+  buildinggadget.give:
+    description: "Permission to use the /bgadget give command"
+    default: op
+  buildinggadget.reload:
+    description: "Permission to use the /bgadget reload command"
+    default: op
