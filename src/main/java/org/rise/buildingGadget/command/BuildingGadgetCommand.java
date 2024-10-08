@@ -55,7 +55,7 @@ public class BuildingGadgetCommand implements CommandExecutor, TabCompleter {
         List<String> argument = new ArrayList<>();
         if (args.length == 1) {
             if (sender.hasPermission("buildinggadget.give")) argument.add("reload");
-            if (sender instanceof Player || sender.hasPermission("buildinggadget.give")) argument.add("give");
+            if (sender instanceof Player && sender.hasPermission("buildinggadget.give")) argument.add("give");
             argument.add("confirm");
             Collections.sort(argument);
         }
