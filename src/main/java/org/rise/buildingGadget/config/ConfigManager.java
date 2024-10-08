@@ -27,6 +27,8 @@ public class ConfigManager {
     public static String MESSAGE_INVALID_FIRST_BLOCK;
     public static String MESSAGE_CONFIG_RELOADED;
     public static String MESSAGE_INVALID_SELECTION;
+    public static String TOOL_NAME;
+    public static String TOOL_LORE;
 
     public static void load() {
         if (!configPath.exists()) {
@@ -35,7 +37,9 @@ public class ConfigManager {
         config = YamlConfiguration.loadConfiguration(configPath);
 
         PREFIX = ChatColor.translateAlternateColorCodes('&', config.getString("Prefix", "&7[&6BuildingGadget&7] "));
-        MATERIAL = Material.valueOf(config.getString("BuildingMat", "BLAZE_ROD"));
+        TOOL_NAME = config.getString("ToolName", "Building Gadget");
+        TOOL_LORE = config.getString("ToolLore", "Use This To Make Your Build Easy");
+        MATERIAL = Material.valueOf(config.getString("Item", "BLAZE_ROD"));
         MODEL_DATA = config.getInt("CustomModelData", 1050);
         MESSAGE_ONLY_PLAYER = config.getString("Messages.OnlyPlayers", "Only players can use this command.");
         MESSAGE_NO_PERM = config.getString("Messages.NoPermission", "You do not have permission to use this command.");

@@ -42,12 +42,22 @@ public class BlockSelection {
             int minZ = Math.min(firstBlock.getBlockZ(), secondBlock.getBlockZ());
             int maxZ = Math.max(firstBlock.getBlockZ(), secondBlock.getBlockZ());
 
-            int blocksToPlace = (maxX - minX + 1) * (maxY - minY + 1) * (maxZ - minZ + 1);
+            int airBlocksToPlace = 0;
+            for (int x = minX; x <= maxX; x++) {
+                for (int y = minY; y <= maxY; y++) {
+                    for (int z = minZ; z <= maxZ; z++) {
+                        Location loc = new Location(firstBlock.getWorld(), x, y, z);
+                        Block block = loc.getBlock();
+                        if (block.getType() == Material.AIR) {
+                            airBlocksToPlace++;
+                        }
+                    }
+                }
+            }
 
-            ItemStack[] inventory = player.getInventory().getContents();
             int totalBlocksAvailable = getAvailableBlock(player, blockType);
 
-            if (totalBlocksAvailable >= blocksToPlace) {
+            if (totalBlocksAvailable >= airBlocksToPlace) {
                 for (int x = minX; x <= maxX; x++) {
                     for (int y = minY; y <= maxY; y++) {
                         for (int z = minZ; z <= maxZ; z++) {
@@ -59,8 +69,8 @@ public class BlockSelection {
                         }
                     }
                 }
-
-                int remainingToPlace = blocksToPlace;
+                int remainingToPlace = airBlocksToPlace;
+                ItemStack[] inventory = player.getInventory().getContents();
                 for (int i = 0; i < inventory.length && remainingToPlace > 0; i++) {
                     ItemStack item = inventory[i];
                     if (item != null && item.getType() == blockType) {
@@ -78,10 +88,11 @@ public class BlockSelection {
                 player.getInventory().setContents(inventory);
                 player.sendMessage(ConfigManager.PREFIX + ChatColor.GREEN + ConfigManager.MESSAGE_BLOCK_PLACED);
             } else {
-                player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_NOT_ENOUGH_BLOCK + (blocksToPlace - totalBlocksAvailable));
+                player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_NOT_ENOUGH_BLOCK + (airBlocksToPlace - totalBlocksAvailable));
             }
         }
     }
+
 
     private int getAvailableBlock(Player player, Material blockType) {
         ItemStack[] inventory = player.getInventory().getContents();

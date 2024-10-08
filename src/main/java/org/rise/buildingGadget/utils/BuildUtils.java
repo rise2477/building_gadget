@@ -37,10 +37,11 @@ public class BuildUtils {
 
         if (meta != null) {
             meta.setCustomModelData(ConfigManager.MODEL_DATA);
-            meta.setDisplayName(ChatColor.GOLD + "Building Gadget");
 
+            meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', ConfigManager.TOOL_NAME));
             List<String> lore = new ArrayList<>();
-            lore.add(ChatColor.GREEN + "Use this gadget to place blocks.");
+
+            lore.add(ChatColor.translateAlternateColorCodes('&', ConfigManager.TOOL_LORE));
             meta.setLore(lore);
 
             item.setItemMeta(meta);

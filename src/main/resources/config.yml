@@ -1,7 +1,18 @@
-# config.yml
 Prefix: '&7[&6BuildingGadget&7]'
-BuildingMat: 'BLAZE_ROD'
+
+#Name of Building Gadget
+ToolName: '&6Building Gadget'
+
+#Lore of Building Gadget
+ToolLore: 'Use This To Make Your Build Easy'
+
+##Item you want to be Building Gadget Item
+Item: 'BLAZE_ROD'
+
+##Custom ModelData of Item to make Building Gadget Texture
 CustomModelData: 1050
+
+#All Message
 Messages:
   OnlyPlayers: 'Only players can use this command.'
   NoPermission: 'You do not have permission to use this command.'
