@@ -30,7 +30,7 @@ public final class BuildingGadget extends JavaPlugin implements Listener {
         loadConfig();
         getServer().getPluginManager().registerEvents(this, this);
     }
-    //Hello
+    //HelloWorld
     @Override
     public void onDisable() {
     }
