@@ -45,13 +45,7 @@ public class BlockSelection {
             int blocksToPlace = (maxX - minX + 1) * (maxY - minY + 1) * (maxZ - minZ + 1);
 
             ItemStack[] inventory = player.getInventory().getContents();
-            int totalBlocksAvailable = 0;
-
-            for (ItemStack item : inventory) {
-                if (item != null && item.getType() == blockType) {
-                    totalBlocksAvailable += item.getAmount();
-                }
-            }
+            int totalBlocksAvailable = getAvailableBlock(player, blockType);
 
             if (totalBlocksAvailable >= blocksToPlace) {
                 for (int x = minX; x <= maxX; x++) {
@@ -87,5 +81,17 @@ public class BlockSelection {
                 player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_NOT_ENOUGH_BLOCK + (blocksToPlace - totalBlocksAvailable));
             }
         }
+    }
+
+    private int getAvailableBlock(Player player, Material blockType) {
+        ItemStack[] inventory = player.getInventory().getContents();
+        int totalBlocksAvailable = 0;
+
+        for (ItemStack item : inventory) {
+            if (item != null && item.getType() == blockType) {
+                totalBlocksAvailable += item.getAmount();
+            }
+        }
+        return totalBlocksAvailable;
     }
 }
