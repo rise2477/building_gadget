@@ -40,7 +40,7 @@ public class PlayerListener implements Listener {
 
                 if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     if (selection != null && selection.getSecondBlock() == null) {
-                        selection.setSecondBlock(clickedBlock.getLocation());
+                        selection.setSecondBlock(clickedBlock.getLocation(), player);
                         player.sendMessage(ConfigManager.PREFIX + ChatColor.GREEN + ConfigManager.MESSAGE_SECOND_BLOCK_SELECTED);
                     } else if (selection != null && selection.getSecondBlock() != null) {
                         player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_BOTH_BLOCK_SELECTED);
