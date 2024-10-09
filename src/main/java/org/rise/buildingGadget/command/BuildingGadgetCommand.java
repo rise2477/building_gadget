@@ -1,6 +1,8 @@
 package org.rise.buildingGadget.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +30,18 @@ public class BuildingGadgetCommand implements CommandExecutor, TabCompleter {
             if (args.length > 0) {
                 if (args[0].equalsIgnoreCase("give")) {
                     if (player.hasPermission("buildinggadget.give")) {
-                        BuildUtils.giveBuildingGadget(player);
+                        if (args.length == 2) {
+                            Player targetPlayer = Bukkit.getPlayerExact(args[1]);
+                            if (targetPlayer != null) {
+                                BuildUtils.giveBuildingGadget(targetPlayer);
+                                player.sendMessage(ConfigManager.PREFIX + ChatColor.GREEN + "Building Gadget given to " + targetPlayer.getName());
+                                targetPlayer.sendMessage(ConfigManager.PREFIX + ChatColor.GREEN + "You have received a Building Gadget!");
+                            } else {
+                                player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + "Player not found.");
+                            }
+                        } else {
+                            player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + "Please specify a player.");
+                        }
                     } else {
                         player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_NO_PERM);
                     }
@@ -57,6 +70,11 @@ public class BuildingGadgetCommand implements CommandExecutor, TabCompleter {
             if (sender.hasPermission("buildinggadget.give")) argument.add("reload");
             if (sender instanceof Player && sender.hasPermission("buildinggadget.give")) argument.add("give");
             argument.add("confirm");
+            Collections.sort(argument);
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("give")) {
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                argument.add(onlinePlayer.getName());
+            }
             Collections.sort(argument);
         }
         return argument;

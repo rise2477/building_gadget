@@ -69,6 +69,7 @@ public class BlockSelection {
                         }
                     }
                 }
+                //คำนวนบล็อคอากาศเพื่อเปลี่ยนเป็นจำนวนจริง
                 int remainingToPlace = airBlocksToPlace;
                 ItemStack[] inventory = player.getInventory().getContents();
                 for (int i = 0; i < inventory.length && remainingToPlace > 0; i++) {
