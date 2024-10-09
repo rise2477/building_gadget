@@ -50,7 +50,7 @@ public class ConfigManager {
         MESSAGE_RECEIVED_GADGET = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.ReceivedGadget", "You have received a Building Gadget."));
         MESSAGE_FIRST_BLOCK_SELECTED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.FirstBlockSelected", "First block selected."));
         MESSAGE_SECOND_BLOCK_SELECTED = ChatColor.translateAlternateColorCodes('&',config.getString("Messages.SecondBlockSelected", "Second block selected."));
-        MESSAGE_BOTH_BLOCK_SELECTED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.BothBlocksAlreadySelected", "Both blocks already selected."));
+        MESSAGE_BOTH_BLOCK_SELECTED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.BothBlocksSelected", "Both blocks already selected."));
         MESSAGE_MUST_SELECTED_FIRST = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.MustSelectFirst", "You must select the first block first."));
         MESSAGE_NOT_ENOUGH_BLOCK = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.NotEnoughBlocks", "Not enough blocks in your inventory. You Need:"));
         MESSAGE_BLOCK_PLACED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.BlocksPlaced", "Blocks placed successfully."));
