@@ -16,19 +16,18 @@ public class BuildUtils {
     public static void confirmPlacement(Player player) {
         BlockSelection selection = BuildingGadget.playerSelections.get(player);
         if (selection == null) {
-            player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_INVALID_SELECTION);
+            player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_INVALID_SELECTION);
             return;
         }
 
         Material blockType = selection.getFirstBlock().getBlock().getType();
 
         if (blockType == Material.AIR) {
-            player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_INVALID_FIRST_BLOCK);
+            player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_INVALID_FIRST_BLOCK);
             return;
         }
 
         selection.placeBlocks(player, blockType);
-        BuildingGadget.playerSelections.remove(player);
     }
 
     public static void giveBuildingGadget(Player player) {
@@ -38,16 +37,16 @@ public class BuildUtils {
         if (meta != null) {
             meta.setCustomModelData(ConfigManager.MODEL_DATA);
 
-            meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', ConfigManager.TOOL_NAME));
+            meta.setDisplayName(ConfigManager.TOOL_NAME);
             List<String> lore = new ArrayList<>();
 
-            lore.add(ChatColor.translateAlternateColorCodes('&', ConfigManager.TOOL_LORE));
+            lore.add(ConfigManager.TOOL_LORE);
             meta.setLore(lore);
 
             item.setItemMeta(meta);
         }
 
         player.getInventory().addItem(item);
-        player.sendMessage(ConfigManager.PREFIX + ChatColor.GREEN + ConfigManager.MESSAGE_RECEIVED_GADGET);
+        player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_RECEIVED_GADGET);
     }
 }

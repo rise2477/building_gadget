@@ -93,11 +93,11 @@ public class BlockSelection {
                         }
                     }
                 }
-
+                BuildingGadget.playerSelections.remove(player);
                 player.getInventory().setContents(inventory);
-                player.sendMessage(ConfigManager.PREFIX + ChatColor.GREEN + ConfigManager.MESSAGE_BLOCK_PLACED);
+                player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_BLOCK_PLACED);
             } else {
-                player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_NOT_ENOUGH_BLOCK + (airBlocksToPlace - totalBlocksAvailable));
+                player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_NOT_ENOUGH_BLOCK + (airBlocksToPlace - totalBlocksAvailable));
             }
         }
     }
@@ -115,9 +115,11 @@ public class BlockSelection {
             for (int x = minX; x <= maxX; x++) {
                 for (int y = minY; y <= maxY; y++) {
                     for (int z = minZ; z <= maxZ; z++) {
-                        Location loc = new Location(world, x, y, z);
-                        // ส่งอนุภาคให้กับผู้เล่นที่ใช้เท่านั้น
-                        player.spawnParticle(Particle.HAPPY_VILLAGER, loc, 10);
+                        // แสดงอนุภาคเฉพาะที่อยู่ที่กรอบของพื้นที่
+                        if (x == minX || x == maxX || y == minY || y == maxY || z == minZ || z == maxZ) {
+                            Location loc = new Location(world, x, y, z);
+                            player.spawnParticle(Particle.HAPPY_VILLAGER, loc, 10);
+                        }
                     }
                 }
             }

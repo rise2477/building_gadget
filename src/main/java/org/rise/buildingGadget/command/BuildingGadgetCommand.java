@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.rise.buildingGadget.BuildingGadget;
 import org.rise.buildingGadget.config.ConfigManager;
 import org.rise.buildingGadget.utils.BuildUtils;
 
@@ -49,6 +50,10 @@ public class BuildingGadgetCommand implements CommandExecutor, TabCompleter {
                 } else if (args[0].equalsIgnoreCase("confirm")) {
                     BuildUtils.confirmPlacement(player);
                     return true;
+                } else if (args[0].equalsIgnoreCase("cancel")) {
+                    BuildingGadget.playerSelections.remove(player);
+                    player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_CANCEL);
+                    return true;
                 } else if (args[0].equalsIgnoreCase("reload")) {
                     if (player.hasPermission("buildinggadget.reload")) {
                         ConfigManager.load();
@@ -70,6 +75,7 @@ public class BuildingGadgetCommand implements CommandExecutor, TabCompleter {
             if (sender.hasPermission("buildinggadget.give")) argument.add("reload");
             if (sender instanceof Player && sender.hasPermission("buildinggadget.give")) argument.add("give");
             argument.add("confirm");
+            argument.add("cancel");
             Collections.sort(argument);
         } else if (args.length == 2 && args[0].equalsIgnoreCase("give")) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {

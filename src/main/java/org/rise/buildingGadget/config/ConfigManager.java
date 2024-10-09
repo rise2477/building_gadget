@@ -29,6 +29,7 @@ public class ConfigManager {
     public static String MESSAGE_INVALID_SELECTION;
     public static String TOOL_NAME;
     public static String TOOL_LORE;
+    public static String MESSAGE_CANCEL;
 
     public static void load() {
         if (!configPath.exists()) {
@@ -37,22 +38,23 @@ public class ConfigManager {
         config = YamlConfiguration.loadConfiguration(configPath);
 
         PREFIX = ChatColor.translateAlternateColorCodes('&', config.getString("Prefix", "&7[&6BuildingGadget&7] "));
-        TOOL_NAME = config.getString("ToolName", "Building Gadget");
-        TOOL_LORE = config.getString("ToolLore", "Use This To Make Your Build Easy");
+        TOOL_NAME = ChatColor.translateAlternateColorCodes('&', config.getString("ToolName", "Building Gadget"));
+        TOOL_LORE = ChatColor.translateAlternateColorCodes('&', config.getString("ToolLore", "Use This To Make Your Build Easy"));
         MATERIAL = Material.valueOf(config.getString("Item", "BLAZE_ROD"));
         MODEL_DATA = config.getInt("CustomModelData", 1050);
-        MESSAGE_ONLY_PLAYER = config.getString("Messages.OnlyPlayers", "Only players can use this command.");
-        MESSAGE_NO_PERM = config.getString("Messages.NoPermission", "You do not have permission to use this command.");
-        MESSAGE_RECEIVED_GADGET = config.getString("Messages.ReceivedGadget", "You have received a Building Gadget.");
-        MESSAGE_FIRST_BLOCK_SELECTED = config.getString("Messages.FirstBlockSelected", "First block selected.");
-        MESSAGE_SECOND_BLOCK_SELECTED = config.getString("Messages.SecondBlockSelected", "Second block selected.");
-        MESSAGE_BOTH_BLOCK_SELECTED = config.getString("Messages.BothBlocksAlreadySelected", "Both blocks already selected.");
-        MESSAGE_MUST_SELECTED_FIRST = config.getString("Messages.MustSelectFirst", "You must select the first block first.");
-        MESSAGE_NOT_ENOUGH_BLOCK = config.getString("Messages.NotEnoughBlocks", "Not enough blocks in your inventory. You Need:");
-        MESSAGE_BLOCK_PLACED = config.getString("Messages.BlocksPlaced", "Blocks placed successfully.");
-        MESSAGE_INVALID_FIRST_BLOCK = config.getString("Messages.InvalidFirstBlock", "&cThe first selected block is AIR. Please select a valid block.");
-        MESSAGE_CONFIG_RELOADED = config.getString("Messages.ConfigReloaded", "Configuration has been reloaded.");
-        MESSAGE_INVALID_SELECTION = config.getString("Messages.InvalidSelection", "You must select two blocks first.");
+        MESSAGE_CANCEL = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.Cancel-Massage", "Cancel Selected Success."));
+        MESSAGE_ONLY_PLAYER = ChatColor.translateAlternateColorCodes('&',config.getString("Messages.OnlyPlayers", "Only players can use this command."));
+        MESSAGE_NO_PERM = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.NoPermission", "You do not have permission to use this command."));
+        MESSAGE_RECEIVED_GADGET = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.ReceivedGadget", "You have received a Building Gadget."));
+        MESSAGE_FIRST_BLOCK_SELECTED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.FirstBlockSelected", "First block selected."));
+        MESSAGE_SECOND_BLOCK_SELECTED = ChatColor.translateAlternateColorCodes('&',config.getString("Messages.SecondBlockSelected", "Second block selected."));
+        MESSAGE_BOTH_BLOCK_SELECTED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.BothBlocksAlreadySelected", "Both blocks already selected."));
+        MESSAGE_MUST_SELECTED_FIRST = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.MustSelectFirst", "You must select the first block first."));
+        MESSAGE_NOT_ENOUGH_BLOCK = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.NotEnoughBlocks", "Not enough blocks in your inventory. You Need:"));
+        MESSAGE_BLOCK_PLACED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.BlocksPlaced", "Blocks placed successfully."));
+        MESSAGE_INVALID_FIRST_BLOCK = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.InvalidFirstBlock", "&cThe first selected block is AIR. Please select a valid block."));
+        MESSAGE_CONFIG_RELOADED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.ConfigReloaded", "Configuration has been reloaded."));
+        MESSAGE_INVALID_SELECTION = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.InvalidSelection", "You must select two blocks first."));
     }
 
 }
