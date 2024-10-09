@@ -4,7 +4,7 @@
     <groupId>org.rise</groupId>
     <artifactId>BuildingGadget</artifactId>
     <name>BuildingGadget</name>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <build>
         <defaultGoal>clean package</defaultGoal>
         <resources>

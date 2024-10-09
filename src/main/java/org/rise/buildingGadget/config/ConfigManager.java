@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.rise.buildingGadget.BuildingGadget;
 
 import java.io.File;
@@ -30,6 +31,7 @@ public class ConfigManager {
     public static String TOOL_NAME;
     public static String TOOL_LORE;
     public static String MESSAGE_CANCEL;
+    public static Boolean isPermissionEnabled;
 
     public static void load() {
         if (!configPath.exists()) {
@@ -55,6 +57,11 @@ public class ConfigManager {
         MESSAGE_INVALID_FIRST_BLOCK = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.InvalidFirstBlock", "&cThe first selected block is AIR. Please select a valid block."));
         MESSAGE_CONFIG_RELOADED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.ConfigReloaded", "Configuration has been reloaded."));
         MESSAGE_INVALID_SELECTION = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.InvalidSelection", "You must select two blocks first."));
+        isPermissionEnabled = config.getBoolean("Permission.Enable");
+    }
+
+    public static boolean hasUsePermission(Player player) {
+        return player.hasPermission("bgadget.use");
     }
 
 }

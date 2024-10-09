@@ -1,5 +1,9 @@
 Prefix: '&7[&6BuildingGadget&7]'
 
+#Permission to check before player use it
+Permission:
+  Enable: true
+
 #Name of Building Gadget
 ToolName: '&6Building Gadget'
 
@@ -15,7 +19,7 @@ CustomModelData: 1050
 #All Message
 Messages:
   OnlyPlayers: '&cOnly players can use this command.'
-  NoPermission: '&cYou do not have permission to use this command.'
+  NoPermission: '&cYou do not have permission to use this.'
   ReceivedGadget: '&aYou have received a Building Gadget.'
   FirstBlockSelected: '&aFirst block selected.'
   Cancel-Massage: '&aCancel Selected Success.'
@@ -26,4 +30,4 @@ Messages:
   BlocksPlaced: '&aBlocks placed successfully.'
   InvalidFirstBlock: '&cThe first selected block is AIR. Please select a valid block.'
   ConfigReloaded: '&aConfiguration has been reloaded.'
-  InvalidSelection: '&cYou must select two blocks by using RIGHT-CLICK first first.'
+  InvalidSelection: '&cYou must select blocks.'

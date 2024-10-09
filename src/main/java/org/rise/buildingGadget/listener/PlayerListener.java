@@ -17,38 +17,45 @@ public class PlayerListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Block clickedBlock = event.getClickedBlock();
-        BuildingGadget plugin = BuildingGadget.getInstance();
 
-        if (clickedBlock != null && player.getInventory().getItemInMainHand().getType() == ConfigManager.MATERIAL) {
-            ItemStack itemInHand = player.getInventory().getItemInMainHand();
+        boolean isPermissionEnabled = ConfigManager.isPermissionEnabled;
 
-            int requiredModelData = plugin.getConfig().getInt("CustomModelData");
-            if (itemInHand.getType() == ConfigManager.MATERIAL && itemInHand.hasItemMeta() &&
-                    itemInHand.getItemMeta().hasCustomModelData() &&
-                    itemInHand.getItemMeta().getCustomModelData() == requiredModelData) {
+        if (!isPermissionEnabled || ConfigManager.hasUsePermission(player)) {
+            if (clickedBlock != null && player.getInventory().getItemInMainHand().getType() == ConfigManager.MATERIAL) {
+                ItemStack itemInHand = player.getInventory().getItemInMainHand();
 
-                BlockSelection selection = BuildingGadget.playerSelections.get(player);
+                int requiredModelData = BuildingGadget.getInstance().getConfig().getInt("CustomModelData");
+                if (itemInHand.getType() == ConfigManager.MATERIAL && itemInHand.hasItemMeta() &&
+                        itemInHand.getItemMeta().hasCustomModelData() &&
+                        itemInHand.getItemMeta().getCustomModelData() == requiredModelData) {
 
-                if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
-                    if (selection == null) {
-                        BuildingGadget.playerSelections.put(player, new BlockSelection(clickedBlock.getLocation(), null));
-                        player.sendMessage(ConfigManager.PREFIX + ChatColor.GREEN + ConfigManager.MESSAGE_FIRST_BLOCK_SELECTED);
-                    } else {
-                        player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_BOTH_BLOCK_SELECTED);
+                    BlockSelection selection = BuildingGadget.playerSelections.get(player);
+
+                    if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
+                        if (selection == null) {
+                            BuildingGadget.playerSelections.put(player, new BlockSelection(clickedBlock.getLocation(), null));
+                            player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_FIRST_BLOCK_SELECTED);
+                        } else {
+                            player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_BOTH_BLOCK_SELECTED);
+                        }
                     }
-                }
 
-                if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    if (selection != null && selection.getSecondBlock() == null) {
-                        selection.setSecondBlock(clickedBlock.getLocation(), player);
-                        player.sendMessage(ConfigManager.PREFIX + ChatColor.GREEN + ConfigManager.MESSAGE_SECOND_BLOCK_SELECTED);
-                    } else if (selection != null && selection.getSecondBlock() != null) {
-                        player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_BOTH_BLOCK_SELECTED);
-                    } else {
-                        player.sendMessage(ConfigManager.PREFIX + ChatColor.RED + ConfigManager.MESSAGE_MUST_SELECTED_FIRST);
+                    if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                        if (selection != null && selection.getSecondBlock() == null) {
+                            selection.setSecondBlock(clickedBlock.getLocation(), player);
+                            player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_SECOND_BLOCK_SELECTED);
+                        } else if (selection != null && selection.getSecondBlock() != null) {
+                            player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_BOTH_BLOCK_SELECTED);
+                        } else {
+                            player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_MUST_SELECTED_FIRST);
+                        }
                     }
                 }
             }
+        } else {
+            player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_NO_PERM);
         }
     }
+
+
 }
