@@ -1,5 +1,5 @@
 name: BuildingGadget
-version: '1.0.4'
+version: '1.0.5'
 main: org.rise.buildingGadget.BuildingGadget
 api-version: '1.20'
 commands:

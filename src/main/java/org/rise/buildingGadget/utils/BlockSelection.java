@@ -72,8 +72,6 @@ public class BlockSelection {
                             Block block = loc.getBlock();
                             if (block.getType() == Material.AIR) {
                                 block.setType(blockType);
-                                // แสดงผล Particle ที่ตำแหน่งของบล็อกที่วาง
-                                player.spawnParticle(Particle.DUST, loc, 10, new Particle.DustOptions(Color.fromRGB(0, 255, 0), 1.0f));
                             }
                         }
                     }
