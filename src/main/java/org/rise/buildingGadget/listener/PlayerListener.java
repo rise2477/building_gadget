@@ -18,16 +18,17 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         Block clickedBlock = event.getClickedBlock();
 
-        boolean isPermissionEnabled = ConfigManager.isPermissionEnabled;
+        if (clickedBlock != null && player.getInventory().getItemInMainHand().getType() == ConfigManager.MATERIAL) {
+            ItemStack itemInHand = player.getInventory().getItemInMainHand();
 
-        if (!isPermissionEnabled || ConfigManager.hasUsePermission(player)) {
-            if (clickedBlock != null && player.getInventory().getItemInMainHand().getType() == ConfigManager.MATERIAL) {
-                ItemStack itemInHand = player.getInventory().getItemInMainHand();
+            int requiredModelData = BuildingGadget.getInstance().getConfig().getInt("CustomModelData");
+            if (itemInHand.getType() == ConfigManager.MATERIAL && itemInHand.hasItemMeta() &&
+                    itemInHand.getItemMeta().hasCustomModelData() &&
+                    itemInHand.getItemMeta().getCustomModelData() == requiredModelData) {
 
-                int requiredModelData = BuildingGadget.getInstance().getConfig().getInt("CustomModelData");
-                if (itemInHand.getType() == ConfigManager.MATERIAL && itemInHand.hasItemMeta() &&
-                        itemInHand.getItemMeta().hasCustomModelData() &&
-                        itemInHand.getItemMeta().getCustomModelData() == requiredModelData) {
+                // ตรวจสอบ Permission หลังจากตรวจสอบ Mat และ CustomModelData แล้ว
+                boolean isPermissionEnabled = ConfigManager.isPermissionEnabled;
+                if (!isPermissionEnabled || ConfigManager.hasUsePermission(player)) {
 
                     BlockSelection selection = BuildingGadget.playerSelections.get(player);
 
@@ -50,12 +51,11 @@ public class PlayerListener implements Listener {
                             player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_MUST_SELECTED_FIRST);
                         }
                     }
+                } else {
+                    // ถ้าไม่มีสิทธิ์ ให้แสดงข้อความนี้
+                    player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_NO_PERM);
                 }
             }
-        } else {
-            player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_NO_PERM);
         }
     }
-
-
 }
