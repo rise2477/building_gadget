@@ -1,6 +1,5 @@
 package org.rise.buildingGadget.listener;
 
-import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
