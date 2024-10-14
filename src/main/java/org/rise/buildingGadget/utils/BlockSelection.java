@@ -1,6 +1,5 @@
 package org.rise.buildingGadget.utils;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,7 +9,6 @@ import org.bukkit.Particle;
 import org.bukkit.World;
 import org.rise.buildingGadget.BuildingGadget;
 import org.rise.buildingGadget.config.ConfigManager;
-import org.bukkit.Color;
 
 public class BlockSelection {
 
