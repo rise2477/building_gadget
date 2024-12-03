@@ -13,7 +13,7 @@ ToolLore: 'Use This To Make Your Build Easy'
 ##Item you want to be Building Gadget Item
 Item: 'BLAZE_ROD'
 
-##Custom ModelData of Item to make Building Gadget Texture
+##Custom ModelData of Item to make Building Gadget Texture. if negative number it will not require Custom Model Data to function
 CustomModelData: 1050
 
 #All Message
