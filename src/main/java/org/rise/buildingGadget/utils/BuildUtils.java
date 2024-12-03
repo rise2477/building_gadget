@@ -21,6 +21,7 @@ public class BuildUtils {
 
         Material blockType = selection.getFirstBlock().getBlock().getType();
 
+
         if (blockType == Material.AIR) {
             player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_INVALID_FIRST_BLOCK);
             return;
