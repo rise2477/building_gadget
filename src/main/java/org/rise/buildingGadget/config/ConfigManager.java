@@ -33,6 +33,7 @@ public class ConfigManager {
     public static String MESSAGE_CANCEL;
     public static Boolean isPermissionEnabled;
 
+
     public static void load() {
         if (!configPath.exists()) {
             BuildingGadget.getInstance().saveResource("config.yml", false);

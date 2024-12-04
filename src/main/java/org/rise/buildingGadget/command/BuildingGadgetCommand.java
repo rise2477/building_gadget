@@ -55,6 +55,7 @@ public class BuildingGadgetCommand implements CommandExecutor, TabCompleter {
                     return true;
                 } else if (args[0].equalsIgnoreCase("reload")) {
                     if (player.hasPermission("buildinggadget.reload")) {
+                        BuildingGadget.getInstance().reloadConfig();
                         ConfigManager.load();
                         player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_CONFIG_RELOADED);
                     } else {
