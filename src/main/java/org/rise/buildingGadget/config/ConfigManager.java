@@ -28,10 +28,15 @@ public class ConfigManager {
     public static String MESSAGE_INVALID_FIRST_BLOCK;
     public static String MESSAGE_CONFIG_RELOADED;
     public static String MESSAGE_INVALID_SELECTION;
+    public static String MESSAGE_EXCEED_MAX_SELECTION;
     public static String TOOL_NAME;
     public static String TOOL_LORE;
     public static String MESSAGE_CANCEL;
     public static Boolean isPermissionEnabled;
+    public static int MAX_BLOCKS;
+    public static Boolean LandsIntegration;
+    public static Boolean LandsForceInLands;
+    public static Boolean WorldGuardIntegration;
 
 
     public static void load() {
@@ -58,7 +63,13 @@ public class ConfigManager {
         MESSAGE_INVALID_FIRST_BLOCK = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.InvalidFirstBlock", "&cThe first selected block is AIR. Please select a valid block."));
         MESSAGE_CONFIG_RELOADED = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.ConfigReloaded", "Configuration has been reloaded."));
         MESSAGE_INVALID_SELECTION = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.InvalidSelection", "You must select two blocks first."));
+        MESSAGE_EXCEED_MAX_SELECTION = ChatColor.translateAlternateColorCodes('&', config.getString("Messages.ExceedMaxSelection", "You have exceeded the maximum selection limit."));
         isPermissionEnabled = config.getBoolean("Permission.Enable");
+        LandsIntegration = config.getBoolean("Lands.Integration");
+        LandsForceInLands = config.getBoolean("Lands.ForceInLands");
+        WorldGuardIntegration = config.getBoolean("WorldGuard.Integration");
+        MAX_BLOCKS = config.getInt("MaxBlocks", 1000);
+
     }
 
     public static boolean hasUsePermission(Player player) {

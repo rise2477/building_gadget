@@ -1,5 +1,18 @@
 package org.rise.buildingGadget.utils;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.flags.Flags;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import me.angeschossen.lands.api.LandsIntegration;
+import me.angeschossen.lands.api.land.Area;
+import me.angeschossen.lands.api.land.LandArea;
+import me.angeschossen.lands.api.land.LandWorld;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -125,6 +138,9 @@ public class BlockSelection {
                         Location loc = new Location(firstBlock.getWorld(), x, y, z);
                         Block block = loc.getBlock();
                         if (isReplaceable(block.getType())) {
+                            if (!landsCheck(player, loc) || !wgCheck(player, loc)) {
+                                continue;
+                            }
                             airBlocksToPlace++;
                         }
                     }
@@ -133,13 +149,21 @@ public class BlockSelection {
 
             int totalBlocksAvailable = getAvailableBlock(player, blockType);
 
-            if (totalBlocksAvailable >= airBlocksToPlace) {
+            if (airBlocksToPlace > ConfigManager.MAX_BLOCKS) {
+                player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_EXCEED_MAX_SELECTION + ConfigManager.MAX_BLOCKS);
+                return;
+            }
+
+            if (totalBlocksAvailable >= airBlocksToPlace || player.getGameMode() == org.bukkit.GameMode.CREATIVE) {
                 for (int x = minX; x <= maxX; x++) {
                     for (int y = minY; y <= maxY; y++) {
                         for (int z = minZ; z <= maxZ; z++) {
                             Location loc = new Location(firstBlock.getWorld(), x, y, z);
                             Block block = loc.getBlock();
                             if (isReplaceable(block.getType())) {
+                                if (!landsCheck(player, loc) || !wgCheck(player, loc)) {
+                                    continue;
+                                }
                                 block.setType(blockType);
                             }
                         }
@@ -254,5 +278,55 @@ public class BlockSelection {
             }
         }
         return totalBlocksAvailable;
+    }
+
+    // Check if player have Lands permission in this area
+    // It will return true if player have permission, and vice versa.
+    public boolean landsCheck(Player player, Location location) {
+        if (!ConfigManager.LandsIntegration) {
+            return true;
+        }
+        if (BuildingGadget.getInstance().getServer().getPluginManager().getPlugin("Lands") == null) {
+            return true;
+        }
+        if (location.getWorld() == null) {
+            return false;
+        }
+        LandsIntegration landsapi = LandsIntegration.of(BuildingGadget.getInstance());
+        LandWorld world = landsapi.getWorld(location.getWorld());
+        Area area = world.getArea(location);
+
+        if (ConfigManager.LandsForceInLands) {
+            if (area != null) {
+                return world.hasFlag(player, location, null, me.angeschossen.lands.api.flags.Flags.BLOCK_PLACE, false);
+            }
+            return false;
+        } else {
+            return world.hasFlag(player, location, null, me.angeschossen.lands.api.flags.Flags.BLOCK_PLACE, false);
+        }
+    }
+
+    public boolean wgCheck(Player player, Location location) {
+        if (!ConfigManager.WorldGuardIntegration) {
+            return true;
+        }
+        if (BuildingGadget.getInstance().getServer().getPluginManager().getPlugin("WorldGuard") == null) {
+            return true;
+        }
+        com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(location);
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionQuery query = container.createQuery();
+        ApplicableRegionSet set = query.getApplicableRegions(loc);
+        LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
+        if (set.queryState(localPlayer, com.sk89q.worldguard.protection.flags.Flags.BUILD) == StateFlag.State.DENY) {
+            // Send message to player that they don't have permission to build here
+            return false;
+        }
+        if (set.queryState(localPlayer, Flags.BLOCK_PLACE) == StateFlag.State.DENY) {
+            // Send message to player that they don't have permission to break blocks here
+            return false;
+        }
+
+        return true;
     }
 }

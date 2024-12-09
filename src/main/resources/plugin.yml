@@ -1,7 +1,8 @@
 name: BuildingGadget
-version: '1.0.9'
+version: '1.0.10'
 main: org.rise.buildingGadget.BuildingGadget
 api-version: '1.20'
+soft-depend: [ Lands, WorldGuard ]
 folia-supported: true
 commands:
   bgadget:

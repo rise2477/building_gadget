@@ -71,6 +71,7 @@ public class PlayerListener implements Listener {
                         if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
                             selection.setFirstBlock(clickedBlock.getLocation());
                             player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_FIRST_BLOCK_SELECTED);
+                            event.setCancelled(true);
                         }
 
                         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -83,7 +84,7 @@ public class PlayerListener implements Listener {
                             } else {
                                 player.sendMessage(ConfigManager.PREFIX + ConfigManager.MESSAGE_MUST_SELECTED_FIRST);
                             }
-
+                            event.setCancelled(true);
                         }
                     }
                 } else {

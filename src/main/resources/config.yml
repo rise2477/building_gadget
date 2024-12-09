@@ -16,6 +16,19 @@ Item: 'BLAZE_ROD'
 ##Custom ModelData of Item to make Building Gadget Texture. if negative number it will not require Custom Model Data to function
 CustomModelData: 1050
 
+#Max Selection of Blocks
+MaxSelection: 1000
+
+LandsIntegration:
+  #Enable Lands Check
+  Enable: true
+  #Allow player to use Building Gadget in Lands Only
+  AllowInLandsOnly: false
+
+WorldGuardIntegration:
+  #Enable WorldGuard Check
+  Enable: true
+
 #All Message
 Messages:
   OnlyPlayers: '&cOnly players can use this command.'
@@ -27,6 +40,7 @@ Messages:
   BothBlocksSelected: '&aSelected all successfully use: &f/bgadget confirm &ato place blocks or &f/bgadget cancel &ato Cancel all Selected.'
   MustSelectFirst: '&aYou must select the first block by using LEFT-CLICK first.'
   NotEnoughBlocks: '&cNot enough blocks in your inventory, You Need:'
+  ExceedMaxSelection: '&cYou have exceeded the maximum selection of blocks. Max Selection: &f'
   BlocksPlaced: '&aBlocks placed successfully.'
   InvalidFirstBlock: '&cThe first selected block is AIR. Please select a valid block.'
   ConfigReloaded: '&aConfiguration has been reloaded.'
